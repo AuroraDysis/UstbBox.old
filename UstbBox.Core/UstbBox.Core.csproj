@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99D1E6B6-161C-4EB5-BCDF-26CB28A69CA2}</ProjectGuid>
+    <ProjectGuid>{C56B4950-37AF-49D8-B31E-759DC167894B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UstbBox.Services</RootNamespace>
-    <AssemblyName>UstbBox.Services</AssemblyName>
+    <RootNamespace>UstbBox.Core</RootNamespace>
+    <AssemblyName>UstbBox.Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -107,20 +107,10 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EducationSystemServices\ElearningPart\ElearningHelper.cs" />
-    <Compile Include="Infrastructure\ServiceSettings.cs" />
-    <Compile Include="ServicesBootstrapper.cs" />
-    <Compile Include="EducationSystemServices\EducationSystemService.cs" />
-    <Compile Include="EducationSystemServices\IEducationSystemService.cs" />
-    <Compile Include="Infrastructure\AppDataBase.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="IBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\UstbBox.Services.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UstbBox.Core\UstbBox.Core.csproj">
-      <Project>{c56b4950-37af-49d8-b31e-759dc167894b}</Project>
-      <Name>UstbBox.Core</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Properties\UstbBox.Core.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
