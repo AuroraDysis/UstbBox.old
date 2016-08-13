@@ -2,10 +2,32 @@
     x:Class="UstbBox.App.Controls.Dialogs.ConfirmDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UstbBox.App.Controls.Dialogs"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:converters="using:Template10.Converters"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:UstbBox.App.Controls.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Style="{StaticResource ScrollableContentDialogStyle}"
     Title="操作确认"
-    PrimaryButtonText="是" SecondaryButtonText="否">
+    Style="{StaticResource ScrollableContentDialogStyle}"
+    PrimaryButtonText="是"
+    SecondaryButtonText="否"
+    mc:Ignorable="d">
+    <FlyoutBase.AttachedFlyout>
+        <MenuFlyout>
+            <MenuFlyoutItem Click="CopyTapped" Text="复制到剪贴板" />
+        </MenuFlyout>
+    </FlyoutBase.AttachedFlyout>
+    <interactivity:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="RightTapped">
+            <behaviors:OpenFlyoutAction />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+    <TextBlock
+        x:Name="ContentTextBlock"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Top"
+        TextWrapping="WrapWholeWords">
+    </TextBlock>
 </ContentDialog>

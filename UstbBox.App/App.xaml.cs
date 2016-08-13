@@ -38,6 +38,7 @@ namespace UstbBox.App
             this.InitializeNavigationKeys();
             this.ConfigAutoMapper();
             Reactive.Bindings.UIDispatcherScheduler.Initialize();
+            UsualCommands.Initialize();
 
             // ReSharper disable once TryCastAndCheckForNull.0
             if (Window.Current.Content as ModalDialog == null)

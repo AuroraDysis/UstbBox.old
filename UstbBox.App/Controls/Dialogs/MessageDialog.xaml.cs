@@ -13,17 +13,25 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Content Dialog item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace UstbBox.App.Controls.Dialogs
 {
+    using Windows.ApplicationModel.DataTransfer;
+
     public sealed partial class MessageDialog : ContentDialog
     {
         public MessageDialog(string content, string title = null)
         {
             this.InitializeComponent();
             this.Title = string.IsNullOrWhiteSpace(title) ? "提示" : title;
-            this.Content = content ?? string.Empty;
+            this.ContentTextBlock.Text = content ?? string.Empty;
+        }
+
+        private void CopyTapped(object sender, RoutedEventArgs e)
+        {
+            var dataPackage = new DataPackage();
+            dataPackage.SetText(this.ContentTextBlock.Text);
+            Clipboard.SetContent(dataPackage);
         }
     }
 }

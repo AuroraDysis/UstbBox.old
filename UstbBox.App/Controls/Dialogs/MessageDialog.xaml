@@ -5,6 +5,27 @@
     xmlns:local="using:UstbBox.App.Controls.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:converters="using:Template10.Converters"
     mc:Ignorable="d" Title="提示" Style="{StaticResource ScrollableContentDialogStyle}"
     PrimaryButtonText="确定">
+    <FlyoutBase.AttachedFlyout>
+        <MenuFlyout>
+            <MenuFlyoutItem Click="CopyTapped" Text="复制到剪贴板" />
+        </MenuFlyout>
+    </FlyoutBase.AttachedFlyout>
+    <interactivity:Interaction.Behaviors>
+        <core:EventTriggerBehavior EventName="RightTapped">
+            <behaviors:OpenFlyoutAction />
+        </core:EventTriggerBehavior>
+    </interactivity:Interaction.Behaviors>
+    <TextBlock x:Name="ContentTextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" TextWrapping="WrapWholeWords">
+        <FlyoutBase.AttachedFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="复制到剪贴板" Click="CopyTapped"/>
+            </MenuFlyout>
+        </FlyoutBase.AttachedFlyout>
+    </TextBlock>
 </ContentDialog>
