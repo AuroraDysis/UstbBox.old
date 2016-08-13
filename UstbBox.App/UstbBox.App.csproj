@@ -97,11 +97,22 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Dialogs\ConfirmDialog.xaml.cs">
+      <DependentUpon>ConfirmDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Dialogs\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\DialogManager.cs" />
+    <Compile Include="Infrastructure\Pages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Settings\CredentialPageViewModel.cs" />
+    <Compile Include="ViewModels\Models\CredentialViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\DisposableViewModelBase.cs" />
     <Compile Include="Views\Busy.xaml.cs">
       <DependentUpon>Busy.xaml</DependentUpon>
     </Compile>
@@ -110,6 +121,9 @@
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\CredentialPage.xaml.cs">
+      <DependentUpon>CredentialPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -183,6 +197,19 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\Dialogs\ConfirmDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Dialogs\MessageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Styles\Custom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +227,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Settings\CredentialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,7 +245,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\Commons\" />
     <Folder Include="ViewModels\Generals\" />
     <Folder Include="Views\Commons\" />
@@ -224,6 +254,10 @@
     <ProjectReference Include="..\UstbBox.Core\UstbBox.Core.csproj">
       <Project>{c56b4950-37af-49d8-b31e-759dc167894b}</Project>
       <Name>UstbBox.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UstbBox.Models\UstbBox.Models.csproj">
+      <Project>{916405c8-c875-41c5-a21e-697f61d99f5c}</Project>
+      <Name>UstbBox.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\UstbBox.Services\UstbBox.Services.csproj">
       <Project>{99d1e6b6-161c-4eb5-bcdf-26cb28a69ca2}</Project>

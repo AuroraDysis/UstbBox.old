@@ -12,7 +12,7 @@ namespace UstbBox.App.Views
     public sealed partial class Shell : Page
     {
         public static Shell Instance { get; set; }
-        public static HamburgerMenu HamburgerMenu => Instance.myHamburgerMenu;
+        public static HamburgerMenu HamburgerMenu => Instance.MyHamburgerMenu;
 
         public Shell()
         {
@@ -27,7 +27,7 @@ namespace UstbBox.App.Views
 
         public void SetNavigationService(INavigationService navigationService)
         {
-            this.myHamburgerMenu.NavigationService = navigationService;
+            this.MyHamburgerMenu.NavigationService = navigationService;
         }
     }
 }

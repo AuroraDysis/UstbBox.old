@@ -12,7 +12,7 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
-    <controls:HamburgerMenu x:Name="myHamburgerMenu">
+    <controls:HamburgerMenu x:Name="MyHamburgerMenu">
 
         <controls:HamburgerMenu.PrimaryButtons>
             <!--  mainpage button  -->
@@ -29,14 +29,22 @@
         </controls:HamburgerMenu.PrimaryButtons>
 
         <controls:HamburgerMenu.SecondaryButtons>
+            <controls:HamburgerButtonInfo PageType="settings:CredentialPage">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="Contact" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                               Text="账号管理" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>
             <!--  settingspage button  -->
-            <controls:HamburgerButtonInfo x:Name="settingsButton" PageParameter="0"
+            <controls:HamburgerButtonInfo PageParameter="0"
                                           PageType="settings:SettingsPage">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Width="48" Height="48"
                                 Symbol="Setting" />
                     <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
-                               Text="Settings" />
+                               Text="设置" />
                 </StackPanel>
             </controls:HamburgerButtonInfo>
         </controls:HamburgerMenu.SecondaryButtons>

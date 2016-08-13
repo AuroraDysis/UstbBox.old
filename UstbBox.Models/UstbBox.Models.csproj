@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C56B4950-37AF-49D8-B31E-759DC167894B}</ProjectGuid>
+    <ProjectGuid>{916405C8-C875-41C5-A21E-697F61D99F5C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UstbBox.Core</RootNamespace>
-    <AssemblyName>UstbBox.Core</AssemblyName>
+    <RootNamespace>UstbBox.Models</RootNamespace>
+    <AssemblyName>UstbBox.Models</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -107,11 +107,9 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="Extensions\ReactiveExtensionsMixin.cs" />
-    <Compile Include="IBootstrapper.cs" />
+    <Compile Include="Credentials\CredentialKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\UstbBox.Core.rd.xml" />
+    <EmbeddedResource Include="Properties\UstbBox.Models.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

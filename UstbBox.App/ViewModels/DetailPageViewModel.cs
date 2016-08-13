@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UstbBox.App.ViewModels
 {
-    public class DetailPageViewModel : ViewModelBase
+    public class DetailPageViewModel : DisposableViewModelBase
     {
         public DetailPageViewModel()
         {

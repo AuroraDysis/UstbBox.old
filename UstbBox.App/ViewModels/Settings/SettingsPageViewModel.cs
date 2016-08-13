@@ -9,13 +9,13 @@ namespace UstbBox.App.ViewModels.Settings
 {
     using UstbBox.App.Services.SettingsServices;
 
-    public class SettingsPageViewModel : ViewModelBase
+    public class SettingsPageViewModel : DisposableViewModelBase
     {
         public SettingsPartViewModel SettingsPartViewModel { get; } = new SettingsPartViewModel();
         public AboutPartViewModel AboutPartViewModel { get; } = new AboutPartViewModel();
     }
 
-    public class SettingsPartViewModel : ViewModelBase
+    public class SettingsPartViewModel : DisposableViewModelBase
     {
         SettingsService settings;
 
@@ -66,7 +66,7 @@ namespace UstbBox.App.ViewModels.Settings
             }, () => !string.IsNullOrEmpty(this.BusyText)));
     }
 
-    public class AboutPartViewModel : ViewModelBase
+    public class AboutPartViewModel : DisposableViewModelBase
     {
         public Uri Logo => Windows.ApplicationModel.Package.Current.Logo;
 
