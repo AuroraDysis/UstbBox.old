@@ -13,8 +13,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace UstbBox.App.Views.Settings
 {
     /// <summary>
@@ -25,6 +23,15 @@ namespace UstbBox.App.Views.Settings
         public CredentialPage()
         {
             this.InitializeComponent();
+        }
+
+        private void ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.DeleteButton1.IsEnabled = this.ListView.SelectedItems.Count > 0;
+            this.EditButton1.IsEnabled = this.ListView.SelectedItems.Count == 1;
+
+            this.DeleteButton2.IsEnabled = this.ListView.SelectedItems.Count > 0;
+            this.EditButton2.IsEnabled = this.ListView.SelectedItems.Count == 1;
         }
     }
 }

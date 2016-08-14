@@ -7,6 +7,7 @@
     "ReactiveProperty": "3.0.1",
     "System.Reactive": "3.0.0",
     "Template10": "1.1.12-preview-160712",
+    "Unity": "4.0.1",
     "Win2D.uwp": "1.19.0"
   },
   "frameworks": {

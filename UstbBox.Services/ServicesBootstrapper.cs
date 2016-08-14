@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace UstbBox.Services
 {
-    using System.Composition;
-
     using LiteDB;
     using LiteDB.Platform;
 
     using UstbBox.Core;
 
-    [Export(nameof(ServicesBootstrapper), typeof(IBootstrapper))]
     public class ServicesBootstrapper : IBootstrapper
     {
         public async Task Run()

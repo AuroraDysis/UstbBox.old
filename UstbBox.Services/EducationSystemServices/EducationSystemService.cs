@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace UstbBox.Services.EducationSystemServices
 {
-    using System.Composition;
-
     using Windows.Web.Http;
     using Windows.Web.Http.Filters;
 
-    [Export(typeof(IEducationSystemService))]
     public class EducationSystemService : IEducationSystemService
     {
         public EducationSystemService()

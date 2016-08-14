@@ -15,5 +15,7 @@ namespace UstbBox.App.ViewModels.Models
         public PasswordCredential Credential { get; set; }
 
         public CredentialKind Kind { get; set; }
+
+        public string Prompt { get; set; }
     }
 }

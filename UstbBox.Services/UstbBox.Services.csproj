@@ -107,6 +107,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CredentialServices\CredentialService.cs" />
+    <Compile Include="CredentialServices\ICredentialService.cs" />
     <Compile Include="EducationSystemServices\ElearningPart\ElearningHelper.cs" />
     <Compile Include="Infrastructure\ServiceSettings.cs" />
     <Compile Include="ServicesBootstrapper.cs" />

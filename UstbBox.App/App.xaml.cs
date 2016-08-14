@@ -12,10 +12,15 @@ namespace UstbBox.App
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Data;
 
+    using Microsoft.Practices.ServiceLocation;
+    using Microsoft.Practices.Unity;
+
     using Template10.Utils;
 
     using UstbBox.App.ViewModels.Models;
     using UstbBox.Models.Credentials;
+    using UstbBox.Services.CredentialServices;
+    using UstbBox.Services.EducationSystemServices;
 
     [Bindable]
     public sealed partial class App : BootStrapper
@@ -36,6 +41,7 @@ namespace UstbBox.App
         public override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             this.InitializeNavigationKeys();
+            this.RegisterTypes();
             this.ConfigAutoMapper();
             Reactive.Bindings.UIDispatcherScheduler.Initialize();
             UsualCommands.Initialize();
@@ -81,7 +87,34 @@ namespace UstbBox.App
                         cfg.CreateMap<PasswordCredential, CredentialViewModel>()
                             .ForMember(vm => vm.Kind, x => x.MapFrom(c => CredentialKind.Get(c.Resource)))
                             .ForMember(vm => vm.Credential, x => x.MapFrom(c => c));
+                        cfg.CreateMap<CredentialKind, CredentialViewModel>()
+                            .ForMember(vm => vm.Kind, x => x.MapFrom(c => c))
+                            .ForMember(
+                                vm => vm.Credential,
+                                x =>
+                                x.MapFrom(
+                                    c =>
+                                    ServiceLocator.Current.GetInstance<ICredentialService>()
+                                        .GetCredential(c.Id.ToString())))
+                            .ForMember(
+                                vm => vm.Prompt,
+                                x =>
+                                x.MapFrom(
+                                    c =>
+                                    "使用本账号的网站有\n" + string.Join("\n", c.Websites)
+                                    + (string.IsNullOrWhiteSpace(c.DefaultPasswordInfomation)
+                                           ? ""
+                                           : $"\n{c.DefaultPasswordInfomation}")));
                     });
+        }
+
+        private void RegisterTypes()
+        {
+            var container = new UnityContainer();
+            container.RegisterType<ICredentialService, CredentialService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IEducationSystemService, EducationSystemService>(
+                new ContainerControlledLifetimeManager());
+            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
         }
     }
 }

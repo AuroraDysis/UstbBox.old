@@ -20,6 +20,7 @@ namespace UstbBox.App
     using UstbBox.Core.Extensions;
 
     using UstbBox.App.Controls.Dialogs;
+    using UstbBox.Models.Credentials;
 
     public static class DialogManager
     {
@@ -30,7 +31,7 @@ namespace UstbBox.App
 
         public static IObservable<Unit> ShowMessage(string content, string title = null)
         {
-            return ShowContentDialog<Unit>(() => new MessageDialog(content, title), command => Unit.Default);
+            return ShowContentDialog<Unit>(() => new MessageDialog(content, title), result => Unit.Default);
         }
 
         public static IObservable<bool> ShowConfirm(string content, string title = null)
@@ -38,6 +39,16 @@ namespace UstbBox.App
             return ShowContentDialog<bool>(
                 () => new ConfirmDialog(content, title),
                 result => result == ContentDialogResult.Primary);
+        }
+
+        public static IObservable<Unit> ShowCredential()
+        {
+            return ShowContentDialog<Unit>(() => new CredentialDialog(), result => Unit.Default);
+        }
+
+        public static IObservable<Unit> ShowCredential(Guid kindId)
+        {
+            return ShowContentDialog<Unit>(() => new CredentialDialog(kindId), result => Unit.Default);
         }
 
         private static IObservable<T> ShowContentDialog<T>(
