@@ -1,0 +1,32 @@
+﻿<Page
+    x:Class="UstbBox.App.Views.Commons.ImagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UstbBox.App.Views.Commons"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:commons="using:UstbBox.App.ViewModels.Commons"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <commons:ImagePageViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <controls:PageHeader x:Name="PageHeader" Content="{x:Bind ViewModel.Image.Value.Name, FallbackValue= }"
+                             Frame="{x:Bind Frame}"
+                             RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" />
+        <ScrollViewer Grid.Row="1" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" ZoomMode="Enabled"
+                      HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinZoomFactor="0.1" MaxZoomFactor="2"
+                      x:Name="ImageScrollViewer">
+            <xaml:CanvasVirtualControl x:Name="ImageVirtualControl" RegionsInvalidated="ImageVirtualControlRegionsInvalidated"/>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -7,10 +7,20 @@ using System.Threading.Tasks;
 namespace UstbBox.App.ViewModels
 {
     using System.Reactive.Disposables;
+    using Template10.Services.NavigationService;
 
     public class DisposableViewModelBase : Template10.Mvvm.ViewModelBase, IDisposable
     {
         protected CompositeDisposable DisposableGroup { get; } = new CompositeDisposable();
+
+        public override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        {
+            if (!this.DisposableGroup.IsDisposed)
+            {
+                this.DisposableGroup.Dispose();
+            }
+            return base.OnNavigatingFromAsync(args);
+        }
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls

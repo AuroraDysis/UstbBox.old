@@ -10,12 +10,19 @@ namespace UstbBox.Services
     using LiteDB.Platform;
 
     using UstbBox.Core;
+    using UstbBox.Models.Images;
 
-    public class ServicesBootstrapper : IBootstrapper
+    public class ServicesBootstrapper
     {
-        public async Task Run()
+        public void Run()
         {
             LitePlatform.Initialize(new LitePlatformWindowsStore());
+
+            var mapper = BsonMapper.Global;
+
+            mapper.Entity<ImageObject>()
+                .Id(x => x.Name, false)
+                .Index(x => x.Name, new IndexOptions() { IgnoreCase = true, Unique = true });
         }
     }
 }

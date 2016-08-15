@@ -8,17 +8,20 @@ namespace UstbBox.Services
 {
     using System.IO;
 
+    using Windows.Storage;
+
     using LiteDB;
 
     using Microsoft.HockeyApp;
 
-    internal class AppDataBase : LiteDatabase
+    internal class AppDatabase : LiteDatabase
     {
-        private readonly ILog logger = HockeyLogManager.GetLog(typeof(AppDataBase));
+        private readonly ILog logger = HockeyLogManager.GetLog(typeof(AppDatabase));
 
-        internal static AppDataBase CommonCache() => new AppDataBase(ServiceSettings.CacheDatabasePath);
+        internal static AppDatabase CommonCache()
+            => new AppDatabase("common_cache.db");
 
-        private AppDataBase(string connectionString)
+        private AppDatabase(string connectionString)
             : base(connectionString)
         {
             this.Log.Logging += s => this.logger.Info(s);

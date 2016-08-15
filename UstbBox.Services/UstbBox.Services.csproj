@@ -110,11 +110,14 @@
     <Compile Include="CredentialServices\CredentialService.cs" />
     <Compile Include="CredentialServices\ICredentialService.cs" />
     <Compile Include="EducationSystemServices\ElearningPart\ElearningHelper.cs" />
+    <Compile Include="ImageServices\IImageService.cs" />
+    <Compile Include="ImageServices\ImageHelper.cs" />
+    <Compile Include="ImageServices\ImageService.cs" />
     <Compile Include="Infrastructure\ServiceSettings.cs" />
     <Compile Include="ServicesBootstrapper.cs" />
     <Compile Include="EducationSystemServices\EducationSystemService.cs" />
     <Compile Include="EducationSystemServices\IEducationSystemService.cs" />
-    <Compile Include="Infrastructure\AppDataBase.cs" />
+    <Compile Include="Infrastructure\AppDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UstbBox.Services.rd.xml" />
   </ItemGroup>
@@ -123,7 +126,12 @@
       <Project>{c56b4950-37af-49d8-b31e-759dc167894b}</Project>
       <Name>UstbBox.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UstbBox.Models\UstbBox.Models.csproj">
+      <Project>{916405C8-C875-41C5-A21E-697F61D99F5C}</Project>
+      <Name>UstbBox.Models</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

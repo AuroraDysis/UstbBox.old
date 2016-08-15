@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Credentials\CredentialKind.cs" />
+    <Compile Include="Images\ImageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\UstbBox.Models.rd.xml" />
   </ItemGroup>

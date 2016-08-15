@@ -9,6 +9,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:UstbBox.App.Views"
       xmlns:settings="using:UstbBox.App.Views.Settings"
+      xmlns:generals="using:UstbBox.App.Views.Generals"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
@@ -16,14 +17,19 @@
 
         <controls:HamburgerMenu.PrimaryButtons>
             <!--  mainpage button  -->
-            <controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MainPage" 
-                                          AutomationProperties.Name="Jerry"
-                                          >
+            <controls:HamburgerButtonInfo PageType="views:MainPage">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Width="48" Height="48"
                                 Symbol="Home" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="主页" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>
+            <controls:HamburgerButtonInfo PageType="generals:GeneralsNavigationPage">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="List" />
                     <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
-                               Text="Home" />
+                               Text="常用工具" />
                 </StackPanel>
             </controls:HamburgerButtonInfo>
         </controls:HamburgerMenu.PrimaryButtons>

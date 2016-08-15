@@ -107,7 +107,7 @@
     <Compile Include="Controls\Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\UsualCommands.cs" />
+    <Compile Include="Infrastructure\Startups.cs" />
     <Compile Include="Infrastructure\DialogManager.cs" />
     <Compile Include="Infrastructure\Pages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,8 +126,14 @@
     <Compile Include="Views\Commons\GalleryPage.xaml.cs">
       <DependentUpon>GalleryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Commons\ImagePage.xaml.cs">
+      <DependentUpon>ImagePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Generals\GeneralsNavigationPage.xaml.cs">
+      <DependentUpon>GeneralsNavigationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -236,7 +242,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Commons\ImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Generals\GeneralsNavigationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,7 +277,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Generals\" />
-    <Folder Include="Views\Generals\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UstbBox.Core\UstbBox.Core.csproj">

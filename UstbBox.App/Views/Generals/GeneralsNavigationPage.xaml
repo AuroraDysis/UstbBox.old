@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="UstbBox.App.Views.Generals.GeneralsNavigationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UstbBox.App.Views.Generals"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:commons="using:UstbBox.App.Views.Commons"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <controls:PageHeader Frame="{x:Bind Frame}" Content="常用工具"
+                             HorizontalContentAlignment="Stretch">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:EllipsisBehavior Visibility="Auto" />
+            </interactivity:Interaction.Behaviors>
+        </controls:PageHeader>
+
+        <ListView Grid.Row="1" ItemClick="ListViewItemClick"  IsItemClickEnabled="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter Content="{Binding Content}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <controls:HamburgerButtonInfo ButtonType="Command" PageType="commons:ImagePage" PageParameter="CampusMap">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="Map" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                               Text="校园地图" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>
+            <controls:HamburgerButtonInfo ButtonType="Command" PageType="commons:GalleryPage" PageParameter="CampusCalendar">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="Calendar" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                               Text="校历" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>
+            <!--<controls:HamburgerButtonInfo ButtonType="Command" PageType="local:TermInfoPage">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="List" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                               Text="学期信息" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>-->
+        </ListView>
+    </Grid>
+</Page>
