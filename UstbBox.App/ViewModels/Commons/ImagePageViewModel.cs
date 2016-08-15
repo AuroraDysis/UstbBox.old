@@ -49,6 +49,10 @@ namespace UstbBox.App.ViewModels.Commons
                         break;
                 }
             }
+            else if (parameter is ImageObject)
+            {
+                this.Image.Value = (ImageObject)parameter;
+            }
         }
     }
 }

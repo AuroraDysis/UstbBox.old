@@ -35,6 +35,8 @@ namespace UstbBox.App
         {
             var keys = Template10.Common.BootStrapper.Current.PageKeys<Pages>();
             keys.TryAdd(Pages.MainPage, typeof(Views.MainPage));
+            keys.TryAdd(Pages.ImagePage, typeof(Views.Commons.ImagePage));
+            keys.TryAdd(Pages.GalleryPage, typeof(Views.Commons.GalleryPage));
             keys.TryAdd(Pages.CredentialPage, typeof(Views.Settings.CredentialPage));
             keys.TryAdd(Pages.SettingsPage, typeof(Views.Settings.SettingsPage));
         }

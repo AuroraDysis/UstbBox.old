@@ -38,7 +38,7 @@
                                Text="校园地图" />
                 </StackPanel>
             </controls:HamburgerButtonInfo>
-            <controls:HamburgerButtonInfo ButtonType="Command" PageType="commons:GalleryPage" PageParameter="CampusCalendar">
+            <controls:HamburgerButtonInfo ButtonType="Command" PageType="commons:GalleryPage" PageParameter="SchoolCalendars">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Width="48" Height="48"
                                 Symbol="Calendar" />

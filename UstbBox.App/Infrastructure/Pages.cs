@@ -9,7 +9,9 @@ namespace UstbBox.App
     public enum Pages
     {
         MainPage,
+        GalleryPage,
+        ImagePage,
         CredentialPage,
-        SettingsPage
+        SettingsPage,
     }
 }

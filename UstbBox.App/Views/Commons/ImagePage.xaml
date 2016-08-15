@@ -18,11 +18,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <controls:PageHeader x:Name="PageHeader" Content="{x:Bind ViewModel.Image.Value.Name, FallbackValue= }"
-                             Frame="{x:Bind Frame}"
-                             RelativePanel.AlignLeftWithPanel="True"
-                             RelativePanel.AlignRightWithPanel="True"
-                             RelativePanel.AlignTopWithPanel="True" />
+        <controls:PageHeader x:Name="PageHeader" Content="{x:Bind ViewModel.Image.Value.Name, FallbackValue='Loading...'}"
+                             Frame="{x:Bind Frame}"/>
         <ScrollViewer Grid.Row="1" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" ZoomMode="Enabled"
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinZoomFactor="0.1" MaxZoomFactor="2"
                       x:Name="ImageScrollViewer">

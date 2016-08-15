@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace UstbBox.Services.ImageServices
 {
+    using System.Reactive.Linq;
+
     using UstbBox.Models.Images;
 
     public class ImageService : IImageService
@@ -21,8 +23,16 @@ namespace UstbBox.Services.ImageServices
                 "http://www.ustb.edu.cn/xxfw/UploadFiles_7320/200905/20090512160457504.jpg");
         }
 
-        // public IObservable<ImageObject> GetSchoolCalendars()
-        // {
-        // }
+        public IObservable<ImageObject> GetSchoolCalendars()
+        {
+            return
+                this.helper.GetTerms()
+                    .ToObservable()
+                    .SelectMany(
+                        x =>
+                        this.helper.DownloadImage(x, "SchoolCalendars", x + ".jpg", this.helper.GetCalendarUrl(x))
+                            .Catch(Observable.Return<ImageObject>(null)))
+                    .Where(x => x != null);
+        }
     }
 }

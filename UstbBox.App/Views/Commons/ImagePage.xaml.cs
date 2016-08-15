@@ -27,7 +27,12 @@ namespace UstbBox.App.Views.Commons
 
     using Windows.Storage;
     using Windows.Storage.Streams;
+    using Windows.UI.Core;
+    using Windows.UI.Xaml.Media.Animation;
     using Windows.UI.Xaml.Media.Imaging;
+
+    using Template10.Services.NavigationService;
+    using Template10.Common;
 
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -35,6 +40,8 @@ namespace UstbBox.App.Views.Commons
     public sealed partial class ImagePage : Page
     {
         private CanvasVirtualBitmap virtualBitmap;
+
+        private readonly SystemNavigationManager systemNavigationManager = SystemNavigationManager.GetForCurrentView();
 
         public ImagePage()
         {
@@ -48,8 +55,8 @@ namespace UstbBox.App.Views.Commons
                 .SelectMany(
                     x =>
                     CanvasVirtualBitmap.LoadAsync(
-                        this.ImageVirtualControl.Device, 
-                        x, 
+                        this.ImageVirtualControl.Device,
+                        x,
                         CanvasVirtualBitmapOptions.CacheOnDemand))
                 .ObserveOnUIDispatcher()
                 .Subscribe(
@@ -61,7 +68,54 @@ namespace UstbBox.App.Views.Commons
                             this.ImageVirtualControl.Height = size.Height;
                             this.ImageVirtualControl.Invalidate();
                             Busy.SetBusy(false);
+                        },
+                    ex =>
+                        {
+                            Busy.SetBusy(false);
                         });
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
+
+            if (animation != null)
+            {
+                this.ImageVirtualControl.Opacity = 0;
+
+                // Wait for image opened. In future Insider Preview releases, this won't be necessary.
+                this.ImageVirtualControl.Loaded += (_1, _2) =>
+                {
+                    this.ImageVirtualControl.Opacity = 1;
+                };
+                animation.TryStart(this.ImageVirtualControl);
+            }
+
+
+            BootStrapper.BackRequested += this.BootStrapper_BackRequested;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            BootStrapper.BackRequested -= this.BootStrapper_BackRequested;
+        }
+
+        private void BootStrapper_BackRequested(object sender, HandledEventArgs e)
+        {
+            if (e.Handled)
+            {
+                return;
+            }
+
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.ImageVirtualControl);
+            
+            e.Handled = true;
+
+            this.ViewModel.NavigationService.GoBack(new SuppressNavigationTransitionInfo());
         }
 
         private void ImageVirtualControlRegionsInvalidated(CanvasVirtualControl sender, CanvasRegionsInvalidatedEventArgs args)

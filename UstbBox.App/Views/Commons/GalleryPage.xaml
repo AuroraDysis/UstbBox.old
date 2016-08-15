@@ -5,9 +5,39 @@
     xmlns:local="using:UstbBox.App.Views.Commons"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:commons="using:UstbBox.App.ViewModels.Commons"
+    xmlns:images="using:UstbBox.Models.Images"
     mc:Ignorable="d">
+    <Page.DataContext>
+        <commons:GalleryPageViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <controls:PageHeader x:Name="PageHeader" Content="{x:Bind ViewModel.GalleryName.Value}"
+                             Frame="{x:Bind Frame}"/>
+        <ScrollViewer Grid.Row="1">
+            <GridView x:Name="GridView" ContainerContentChanging="GridViewContainerContentChanging" 
+                      ItemsSource="{x:Bind ViewModel.ImageCollection.Value}"
+                      IsItemClickEnabled="True" ItemClick="GridViewItemClick">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="images:ImageObject">
+                        <Grid Height="130" Width="190" Margin="4,4,4,8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{x:Bind Name}" Style="{StaticResource BaseTextBlockStyle}" HorizontalAlignment="Center"/>
+                            <Image x:Name="Image" Grid.Row="1" Source="{x:Bind Path}" Stretch="UniformToFill"/>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </ScrollViewer>
     </Grid>
 </Page>
