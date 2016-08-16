@@ -23,7 +23,7 @@
                              Frame="{x:Bind Frame}"/>
         <ScrollViewer Grid.Row="1">
             <GridView x:Name="GridView" ContainerContentChanging="GridViewContainerContentChanging" 
-                      ItemsSource="{x:Bind ViewModel.ImageCollection.Value}"
+                      ItemsSource="{x:Bind ViewModel.ImageCollection.Value, Mode=OneWay}"
                       IsItemClickEnabled="True" ItemClick="GridViewItemClick">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="images:ImageObject">

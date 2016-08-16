@@ -43,7 +43,8 @@ namespace UstbBox.App.ViewModels.Commons
                         service.GetSchoolCalendars()
                             .ToList()
                             .Subscribe(
-                                x => this.ImageCollection.Value = x.OrderByDescending(s => s.Name).ToList(),
+                                x => 
+                                this.ImageCollection.Value = x.OrderByDescending(s => s.Name).ToList(),
                                 ex => Views.Busy.SetBusy(false),
                                 () => Views.Busy.SetBusy(false));
                         break;

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 namespace UstbBox.App.Views.Commons
 {
+    using System.Numerics;
     using System.Reactive.Concurrency;
     using System.Reactive.Linq;
     using System.Threading.Tasks;
@@ -27,9 +28,13 @@ namespace UstbBox.App.Views.Commons
 
     using Windows.Storage;
     using Windows.Storage.Streams;
+    using Windows.UI.Composition;
     using Windows.UI.Core;
+    using Windows.UI.Xaml.Hosting;
     using Windows.UI.Xaml.Media.Animation;
     using Windows.UI.Xaml.Media.Imaging;
+
+    using Robmikh.Util.CompositionImageLoader;
 
     using Template10.Services.NavigationService;
     using Template10.Common;
@@ -39,97 +44,42 @@ namespace UstbBox.App.Views.Commons
     /// </summary>
     public sealed partial class ImagePage : Page
     {
-        private CanvasVirtualBitmap virtualBitmap;
-
-        private readonly SystemNavigationManager systemNavigationManager = SystemNavigationManager.GetForCurrentView();
+        private ConnectedAnimation animation;
 
         public ImagePage()
         {
             this.InitializeComponent();
 
-            this.ViewModel.Image.Where(x => x != null)
-                .Do(_ => Busy.SetBusy(true, "Loading..."))
-                .ObserveOn(TaskPoolScheduler.Default)
-                .SelectMany(x => StorageFile.GetFileFromPathAsync(x.Path))
-                .SelectMany(x => x.OpenReadAsync())
-                .SelectMany(
-                    x =>
-                    CanvasVirtualBitmap.LoadAsync(
-                        this.ImageVirtualControl.Device,
-                        x,
-                        CanvasVirtualBitmapOptions.CacheOnDemand))
-                .ObserveOnUIDispatcher()
-                .Subscribe(
-                    bitmap =>
-                        {
-                            this.virtualBitmap = bitmap;
-                            var size = this.virtualBitmap.Size;
-                            this.ImageVirtualControl.Width = size.Width;
-                            this.ImageVirtualControl.Height = size.Height;
-                            this.ImageVirtualControl.Invalidate();
-                            Busy.SetBusy(false);
-                        },
-                    ex =>
-                        {
-                            Busy.SetBusy(false);
-                        });
+            this.ViewModel.Image.Where(x => x != null).ObserveOnUIDispatcher().Subscribe(async
+                x =>
+                    {
+
+                        var visual = ElementCompositionPreview.GetElementVisual(this.ImageScrollViewer);
+                        var compositor = visual.Compositor;
+                        var imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
+                        var surface = await imageLoader.CreateManagedSurfaceFromUriAsync(new Uri(x.Path));
+                       
+                        var spriteVisual = compositor.CreateSpriteVisual();
+                        spriteVisual.Brush = compositor.CreateSurfaceBrush(surface.Surface);
+                        spriteVisual.Size = this.ImageScrollViewer.RenderSize.ToVector2();
+                        ElementCompositionPreview.SetElementChildVisual(this.ImageScrollViewer, spriteVisual);
+
+                        this.animation?.TryStart(this.ImageScrollViewer);
+                    });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
-
-            if (animation != null)
-            {
-                this.ImageVirtualControl.Opacity = 0;
-
-                // Wait for image opened. In future Insider Preview releases, this won't be necessary.
-                this.ImageVirtualControl.Loaded += (_1, _2) =>
-                {
-                    this.ImageVirtualControl.Opacity = 1;
-                };
-                animation.TryStart(this.ImageVirtualControl);
-            }
-
-
-            BootStrapper.BackRequested += this.BootStrapper_BackRequested;
+            this.animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            base.OnNavigatedFrom(e);
+            base.OnNavigatingFrom(e);
 
-            BootStrapper.BackRequested -= this.BootStrapper_BackRequested;
-        }
-
-        private void BootStrapper_BackRequested(object sender, HandledEventArgs e)
-        {
-            if (e.Handled)
-            {
-                return;
-            }
-
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.ImageVirtualControl);
-            
-            e.Handled = true;
-
-            this.ViewModel.NavigationService.GoBack(new SuppressNavigationTransitionInfo());
-        }
-
-        private void ImageVirtualControlRegionsInvalidated(CanvasVirtualControl sender, CanvasRegionsInvalidatedEventArgs args)
-        {
-            foreach (var region in args.InvalidatedRegions)
-            {
-                using (var ds = this.ImageVirtualControl.CreateDrawingSession(region))
-                {
-                    if (this.virtualBitmap != null)
-                    {
-                        ds.DrawImage(this.virtualBitmap, region, region);
-                    }
-                }
-            }
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.ImageScrollViewer);
         }
     }
 }

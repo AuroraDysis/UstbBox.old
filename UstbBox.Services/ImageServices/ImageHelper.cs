@@ -63,7 +63,12 @@ namespace UstbBox.Services.ImageServices
                                 }
                                 using (var database = AppDatabase.CommonCache())
                                 {
-                                    var imageObject = new ImageObject() { Name = key, Path = file.Path };
+                                    var path = Path.Combine("ms-appdata:///local/", folderName, fileName);
+                                    var imageObject = new ImageObject()
+                                                          {
+                                                              Name = key,
+                                                              Path = path
+                                                          };
                                     var col = database.GetCollection<ImageObject>(folderName);
                                     if (col.Exists(x => x.Name == key))
                                     {
