@@ -12,6 +12,7 @@ namespace UstbBox.App.ViewModels.Commons
     using Microsoft.Practices.ServiceLocation;
 
     using Reactive.Bindings;
+    using Reactive.Bindings.Extensions;
 
     using UstbBox.Models.Images;
     using UstbBox.Services.ImageServices;
@@ -41,7 +42,7 @@ namespace UstbBox.App.ViewModels.Commons
                         var service = ServiceLocator.Current.GetInstance<IImageService>();
                         Views.Busy.SetBusy(true, "Downloading...");
                         service.GetSchoolCalendars()
-                            .ToList()
+                            .ObserveOnUIDispatcher()
                             .Subscribe(
                                 x => 
                                 this.ImageCollection.Value = x.OrderByDescending(s => s.Name).ToList(),

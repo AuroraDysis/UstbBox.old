@@ -28,8 +28,6 @@ namespace UstbBox.App.Views.Commons
     using UstbBox.Models.Images;
     using System.Reactive.Linq;
 
-    using Reactive.Bindings.Extensions;
-
     public sealed partial class GalleryPage : Page
     {
         private static ImageObject navigationImageObject;
@@ -51,9 +49,10 @@ namespace UstbBox.App.Views.Commons
             // Define trigger and animation that should play when the trigger is triggered. 
             this.elementImplicitAnimation["Offset"] = this.CreateOffsetAnimation();
 
-            this.ViewModel.ImageCollection.FirstOrDefaultAsync(x => x != null)
-                .ObserveOnUIDispatcher()
-                .Subscribe(_ => this.WhenGoBack());
+            if (navigationImageObject != null)
+            {
+                this.token = this.GridView.RegisterPropertyChangedCallback(ItemsControl.ItemsSourceProperty, this.WhenGoBack);
+            }
         }
 
         public CompositionAnimationGroup CreateOffsetAnimation()
@@ -102,12 +101,13 @@ namespace UstbBox.App.Views.Commons
 
             var item = (ImageObject)e.ClickedItem;
 
-            this.Transitions = new TransitionCollection { new ContentThemeTransition() };
+            this.Transitions = this.Transitions ?? new TransitionCollection();
+            this.Transitions.Add(new ContentThemeTransition());
 
             this.ViewModel.NavigationService.Navigate(Pages.ImagePage, navigationImageObject = item, new SuppressNavigationTransitionInfo());
         }
 
-        private void WhenGoBack()
+        private void WhenGoBack(DependencyObject obj, DependencyProperty property)
         {
             this.GridView.UnregisterPropertyChangedCallback(ItemsControl.ItemsSourceProperty, this.token);
             var animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
@@ -122,13 +122,21 @@ namespace UstbBox.App.Views.Commons
                 {
                     var root = (FrameworkElement)container.ContentTemplateRoot;
                     var image = (Image)root.FindName("Image");
-                    animation.TryStart(image);
+
+                    // Wait for image opened. In future Insider Preview releases, this won't be necessary.
+                    image.Opacity = 0;
+                    image.ImageOpened += (sender_, e_) =>
+                        {
+                            image.Opacity = 1;
+                            animation.TryStart(image);
+                        };
                 }
                 else
                 {
                     animation.Cancel();
                 }
             }
+
             navigationImageObject = null;
         }
     }

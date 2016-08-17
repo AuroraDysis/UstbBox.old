@@ -35,6 +35,15 @@
         </controls:HamburgerMenu.PrimaryButtons>
 
         <controls:HamburgerMenu.SecondaryButtons>
+            <controls:HamburgerButtonInfo PageType="settings:ResourcesPage">
+                <StackPanel Orientation="Horizontal">
+                    <SymbolIcon Width="48" Height="48"
+                                Symbol="Globe" />
+                    <TextBlock Margin="12,0,0,0" VerticalAlignment="Center"
+                               Text="资源管理" />
+                </StackPanel>
+            </controls:HamburgerButtonInfo>
+
             <controls:HamburgerButtonInfo PageType="settings:CredentialPage">
                 <StackPanel Orientation="Horizontal">
                     <SymbolIcon Width="48" Height="48"

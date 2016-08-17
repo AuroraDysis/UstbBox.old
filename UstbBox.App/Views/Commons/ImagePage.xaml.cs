@@ -50,22 +50,21 @@ namespace UstbBox.App.Views.Commons
         {
             this.InitializeComponent();
 
-            this.ViewModel.Image.Where(x => x != null).ObserveOnUIDispatcher().Subscribe(async
-                x =>
-                    {
-
-                        var visual = ElementCompositionPreview.GetElementVisual(this.ImageScrollViewer);
-                        var compositor = visual.Compositor;
-                        var imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
-                        var surface = await imageLoader.CreateManagedSurfaceFromUriAsync(new Uri(x.Path));
-                       
-                        var spriteVisual = compositor.CreateSpriteVisual();
-                        spriteVisual.Brush = compositor.CreateSurfaceBrush(surface.Surface);
-                        spriteVisual.Size = this.ImageScrollViewer.RenderSize.ToVector2();
-                        ElementCompositionPreview.SetElementChildVisual(this.ImageScrollViewer, spriteVisual);
-
-                        this.animation?.TryStart(this.ImageScrollViewer);
-                    });
+            //this.ViewModel.Image.Where(x => x != null).ObserveOnUIDispatcher().Subscribe(async
+            //    x =>
+            //        {
+            //            var visual = ElementCompositionPreview.GetElementVisual(this.ImageScrollViewer);
+            //            var compositor = visual.Compositor;
+            //            var imageLoader = ImageLoaderFactory.CreateImageLoader(compositor);
+            //            Busy.SetBusy(true, "Loading...");
+            //            var surface = await imageLoader.CreateManagedSurfaceFromUriAsync(new Uri(x.Path));
+            //            Busy.SetBusy(false);
+            //            var spriteVisual = compositor.CreateSpriteVisual();
+            //            spriteVisual.Brush = compositor.CreateSurfaceBrush(surface.Surface);
+            //            spriteVisual.Size = this.ImageScrollViewer.RenderSize.ToVector2();
+            //            ElementCompositionPreview.SetElementChildVisual(this.ImageScrollViewer, spriteVisual);
+            //            this.animation?.TryStart(this.ImageScrollViewer);
+            //        });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -73,13 +72,39 @@ namespace UstbBox.App.Views.Commons
             base.OnNavigatedTo(e);
 
             this.animation = ConnectedAnimationService.GetForCurrentView().GetAnimation("Image");
+
+            if (this.animation != null)
+            {
+                //this.animation.Completed +=
+                //    (s, o) => { ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.Image); };
+                this.Image.Opacity = 0;
+                this.Image.ImageOpened += (s, o) =>
+                    {
+                        this.Image.Opacity = 1;
+                        this.animation?.TryStart(this.Image);
+                    };
+
+            }
+            //BootStrapper.BackRequested += this.BootStrapper_BackRequested;
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnNavigatingFrom(e);
-
-            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.ImageScrollViewer);
+            base.OnNavigatedFrom(e);
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.Image);
         }
+
+        //private void BootStrapper_BackRequested(object sender, HandledEventArgs e)
+        //{
+        //    BootStrapper.BackRequested -= this.BootStrapper_BackRequested;
+        //    if (e.Handled)
+        //    {
+        //        return;
+        //    }
+        //    ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("Image", this.Image);
+        //    //e.Handled = true;
+
+        //    //this.ViewModel.NavigationService.GoBack(new SuppressNavigationTransitionInfo());
+        //}
     }
 }

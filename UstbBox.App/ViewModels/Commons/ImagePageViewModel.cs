@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace UstbBox.App.ViewModels.Commons
 {
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Media.Animation;
+
     using Reactive.Bindings;
 
     using UstbBox.Models.Images;

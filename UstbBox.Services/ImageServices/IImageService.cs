@@ -12,6 +12,6 @@ namespace UstbBox.Services.ImageServices
     {
         IObservable<ImageObject> GetCampusMap();
 
-        IObservable<ImageObject> GetSchoolCalendars();
+        IObservable<List<ImageObject>> GetSchoolCalendars();
     }
 }

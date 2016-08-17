@@ -22,6 +22,8 @@
                              Frame="{x:Bind Frame}"/>
         <ScrollViewer Grid.Row="1" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" ZoomMode="Enabled"
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinZoomFactor="0.1" MaxZoomFactor="2"
-                      x:Name="ImageScrollViewer"/>
+                      x:Name="ImageScrollViewer">
+            <Image x:Name="Image" Source="{x:Bind ViewModel.Image.Value.Path}" Stretch="UniformToFill" />
+        </ScrollViewer>
     </Grid>
 </Page>

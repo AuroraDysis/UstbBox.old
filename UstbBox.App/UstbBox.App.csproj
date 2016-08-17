@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\CredentialPageViewModel.cs" />
     <Compile Include="ViewModels\Models\CredentialViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ResourcesPageViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPageViewModel.cs" />
     <Compile Include="ViewModels\DisposableViewModelBase.cs" />
     <Compile Include="Views\Busy.xaml.cs">
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="Views\Settings\CredentialPage.xaml.cs">
       <DependentUpon>CredentialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\ResourcesPage.xaml.cs">
+      <DependentUpon>ResourcesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -260,6 +264,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\CredentialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\ResourcesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,7 +23,7 @@ namespace UstbBox.Services.ImageServices
                 "http://www.ustb.edu.cn/xxfw/UploadFiles_7320/200905/20090512160457504.jpg");
         }
 
-        public IObservable<ImageObject> GetSchoolCalendars()
+        public IObservable<List<ImageObject>> GetSchoolCalendars()
         {
             return
                 this.helper.GetTerms()
@@ -32,7 +32,9 @@ namespace UstbBox.Services.ImageServices
                         x =>
                         this.helper.DownloadImage(x, "SchoolCalendars", x + ".jpg", this.helper.GetCalendarUrl(x))
                             .Catch(Observable.Return<ImageObject>(null)))
-                    .Where(x => x != null);
+                    .Where(x => x != null)
+                    .ToList()
+                    .Select(x => x.ToList());
         }
     }
 }

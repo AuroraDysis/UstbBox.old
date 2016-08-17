@@ -29,6 +29,8 @@ namespace UstbBox.App
         {
             this.InitializeComponent();
 
+            this.UnhandledException += App_UnhandledException;
+
             this.SplashFactory = (e) => new Views.Splash(e);
 
             var settings = SettingsService.Instance;
@@ -36,6 +38,10 @@ namespace UstbBox.App
             this.RequestedTheme = settings.AppTheme;
             this.CacheMaxDuration = settings.CacheMaxDuration;
             this.ShowShellBackButton = settings.UseShellBackButton;
+        }
+
+        private void App_UnhandledException(System.Object sender, UnhandledExceptionEventArgs e)
+        {
         }
 
         public override async Task OnInitializeAsync(IActivatedEventArgs args)
