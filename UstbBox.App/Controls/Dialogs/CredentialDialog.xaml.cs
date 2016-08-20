@@ -31,8 +31,7 @@ namespace UstbBox.App.Controls.Dialogs
         public CredentialDialog(Guid id)
         {
             this.InitializeComponent();
-            var vm = (CredentialDialogViewModel)this.DataContext;
-            vm.SelectedItem.Value = vm.CredentialViewModels.FirstOrDefault(x => x.Kind.Id == id);
+            this.ViewModel.SelectedItem.Value = this.ViewModel.CredentialViewModels.FirstOrDefault(x => x.Kind.Id == id);
         }
     }
 }

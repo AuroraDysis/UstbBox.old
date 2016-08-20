@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace UstbBox.Services.ResourcesServices
 {
+    using System.Reactive.Windows.Foundation;
+
+    using Windows.Networking.BackgroundTransfer;
+
     public class ResourcesService
     {
-
+        public IObservable<IReadOnlyList<DownloadOperation>> DiscoverActiveDownloads()
+        {
+            return BackgroundDownloader.GetCurrentDownloadsAsync().ToObservable();
+        }
     }
 }

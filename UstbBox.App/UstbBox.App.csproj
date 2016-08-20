@@ -117,6 +117,7 @@
     <Compile Include="ViewModels\Commons\ImagePageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\Models\ResourceViewModel.cs" />
     <Compile Include="ViewModels\Settings\CredentialPageViewModel.cs" />
     <Compile Include="ViewModels\Models\CredentialViewModel.cs" />
     <Compile Include="ViewModels\Settings\ResourcesPageViewModel.cs" />
