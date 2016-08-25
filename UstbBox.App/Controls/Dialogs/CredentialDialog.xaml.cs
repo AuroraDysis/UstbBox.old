@@ -15,6 +15,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UstbBox.App.Controls.Dialogs
 {
+    using Windows.Security.Credentials;
+
+    using AutoMapper;
+
+    using Microsoft.Practices.ServiceLocation;
+
     using Reactive.Bindings;
 
     using UstbBox.App.ViewModels.Models;
@@ -23,15 +29,51 @@ namespace UstbBox.App.Controls.Dialogs
 
     public sealed partial class CredentialDialog : ContentDialog
     {
+        private readonly ICredentialService credentialService = ServiceLocator.Current.GetInstance<ICredentialService>();
+
+        private readonly IEnumerable<CredentialViewModel> credentialViewModels;
+
         public CredentialDialog()
         {
             this.InitializeComponent();
+            this.CrendentialComboBox.ItemsSource =
+                this.credentialViewModels =
+                from kind in CredentialKind.AllKinds select Mapper.Map<CredentialKind, CredentialViewModel>(kind);
         }
 
-        public CredentialDialog(Guid id)
+        public CredentialDialog(Guid id) : this()
         {
-            this.InitializeComponent();
-            this.ViewModel.SelectedItem.Value = this.ViewModel.CredentialViewModels.FirstOrDefault(x => x.Kind.Id == id);
+            this.CrendentialComboBox.SelectedItem = this.credentialViewModels.FirstOrDefault(x => x.Kind.Id == id);
+        }
+
+        public bool CanSave(string username, string password, object selectedItem)
+        {
+            return !string.IsNullOrWhiteSpace(username) && !string.IsNullOrEmpty(password) && selectedItem != null;
+        }
+
+        private void SaveCredential()
+        {
+            var username = this.UsernameTextBox.Text;
+            var password = this.PasswordBox.Password;
+            var item = (CredentialViewModel)this.CrendentialComboBox.SelectedItem;
+            var credential = new PasswordCredential(item.Kind.Id.ToString(), username, password);
+            this.credentialService.SaveCredential(credential);
+        }
+
+        private void FillCredential()
+        {
+            CredentialViewModel vm = this.CrendentialComboBox.SelectedItem as CredentialViewModel;
+            if (vm?.Credential != null)
+            {
+                this.UsernameTextBox.Text = vm.Credential.UserName;
+                vm.Credential.RetrievePassword();
+                this.PasswordBox.Password = vm.Credential.Password;
+            }
+            else
+            {
+                this.UsernameTextBox.Text = string.Empty;
+                this.PasswordBox.Password = string.Empty;
+            }
         }
     }
 }

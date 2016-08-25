@@ -16,7 +16,7 @@ namespace UstbBox.App.Views
 
         private void Resize(SplashScreen splashScreen)
         {
-            if (splashScreen.ImageLocation.Top == 0)
+            if (Math.Abs(splashScreen.ImageLocation.Top) < 0.01)
             {
                 this.splashImage.Visibility = Visibility.Collapsed;
                 return;

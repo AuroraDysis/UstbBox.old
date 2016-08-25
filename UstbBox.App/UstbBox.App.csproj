@@ -103,7 +103,6 @@
     <Compile Include="Controls\Dialogs\CredentialDialog.xaml.cs">
       <DependentUpon>CredentialDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Dialogs\CredentialDialogViewModel.cs" />
     <Compile Include="Controls\Dialogs\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
