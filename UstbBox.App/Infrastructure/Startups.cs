@@ -19,12 +19,14 @@ namespace UstbBox.App
     using UstbBox.Services.EducationSystemServices;
     using UstbBox.Services.ImageServices;
     using UstbBox.Services;
+    using UstbBox.Services.TeachServices;
 
     public class Startups
     {
         public void Run()
         {
             Reactive.Bindings.UIDispatcherScheduler.Initialize();
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             this.InitializeNavigationKeys();
             this.RegisterTypes();
             new ServicesBootstrapper().Run();
@@ -46,8 +48,8 @@ namespace UstbBox.App
             var container = new UnityContainer();
             container.RegisterType<IImageService, ImageService>(new ContainerControlledLifetimeManager());
             container.RegisterType<ICredentialService, CredentialService>(new ContainerControlledLifetimeManager());
-            container.RegisterType<IEducationSystemService, EducationSystemService>(
-                new ContainerControlledLifetimeManager());
+            container.RegisterType<IEducationSystemService, EducationSystemService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ITeachService, TeachService>(new ContainerControlledLifetimeManager());
             ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
         }
 

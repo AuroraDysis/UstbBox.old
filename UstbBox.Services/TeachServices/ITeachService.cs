@@ -10,6 +10,6 @@ namespace UstbBox.Services.TeachServices
 
     public interface ITeachService
     {
-        IObservable<List<TeachNewsItem>> GetLatestNews();
+        IObservable<TeachNewsItem> GetLatestNews();
     }
 }

@@ -114,9 +114,10 @@
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
     <Compile Include="ViewModels\Commons\GalleryPageViewModel.cs" />
     <Compile Include="ViewModels\Commons\ImagePageViewModel.cs" />
+    <Compile Include="ViewModels\Commons\WebPageViewModel.cs" />
+    <Compile Include="ViewModels\Generals\LatestNewsPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
-    <Compile Include="ViewModels\Models\ResourceViewModel.cs" />
     <Compile Include="ViewModels\Settings\CredentialPageViewModel.cs" />
     <Compile Include="ViewModels\Models\CredentialViewModel.cs" />
     <Compile Include="ViewModels\Settings\ResourcesPageViewModel.cs" />
@@ -131,11 +132,17 @@
     <Compile Include="Views\Commons\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Commons\WebPage.xaml.cs">
+      <DependentUpon>WebPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Generals\GeneralsNavigationPage.xaml.cs">
       <DependentUpon>GeneralsNavigationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Generals\LatestNewsPage.xaml.cs">
+      <DependentUpon>LatestNewsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -248,11 +255,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Commons\WebPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Generals\GeneralsNavigationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Generals\LatestNewsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,9 +292,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Generals\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\UstbBox.Core\UstbBox.Core.csproj">
       <Project>{c56b4950-37af-49d8-b31e-759dc167894b}</Project>

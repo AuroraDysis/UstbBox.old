@@ -11,6 +11,7 @@ namespace UstbBox.Services
 
     using UstbBox.Core;
     using UstbBox.Models.Images;
+    using UstbBox.Models.Teach;
 
     public class ServicesBootstrapper
     {
@@ -23,6 +24,8 @@ namespace UstbBox.Services
             mapper.Entity<ImageObject>()
                 .Id(x => x.Name, false)
                 .Index(x => x.Name, new IndexOptions() { IgnoreCase = true, Unique = true });
+
+            mapper.Entity<TeachNewsItem>().Id(x => x.Id, true);
         }
     }
 }

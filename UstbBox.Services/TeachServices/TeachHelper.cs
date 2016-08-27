@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace UstbBox.Services.TeachServices
 {
+    using Flurl;
     using Flurl.Http;
 
     using HtmlAgilityPack;
@@ -35,14 +36,29 @@ namespace UstbBox.Services.TeachServices
 
             var newsRaw = col.Select(x => x.Element("tbody").Element("tr").Descendants("td").ToList()).ToList();
 
-            var result = newsRaw.Select(raw => new TeachNewsItem
-            {
-                Link = raw.First().Element("a").GetAttributeValue("href", null),
-                Name = raw.First().Element("a").InnerText,
-                Date = raw.Last().Element("font").InnerText
-            }).ToList();
+            var result =
+                newsRaw.Select(
+                    raw =>
+                    new TeachNewsItem
+                        {
+                            Link =
+                                Url.Combine(
+                                    "http://teach.ustb.edu.cn/",
+                                    raw.First().Element("a").GetAttributeValue("href", null)),
+                            Name = raw.First().Element("a").InnerText,
+                            Date = raw.Last().Element("font").InnerText
+                        }).ToList();
 
             return result;
+        }
+
+        public void SaveNewsItems(IEnumerable<TeachNewsItem> items)
+        {
+            using (var db = AppDatabase.CommonCache())
+            {
+                var col = db.GetCollection<TeachNewsItem>("TeachNews");
+                col.Insert(items);
+            }
         }
     }
 }
