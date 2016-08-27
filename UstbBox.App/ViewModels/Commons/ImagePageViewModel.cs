@@ -24,9 +24,20 @@ namespace UstbBox.App.ViewModels.Commons
         public ImagePageViewModel()
         {
             this.Image = new ReactiveProperty<ImageObject>();
+            this.CommandOpen = new ReactiveCommand();
+            this.CommandOpen.Subscribe(
+                async _ =>
+                    {
+                        var filename = ImageCache.GetCacheFileName(new Uri(this.Image.Value.Uri));
+                        var storageFile =
+                            await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(filename));
+                        await Windows.System.Launcher.LaunchFileAsync(storageFile);
+                    });
         }
 
         public ReactiveProperty<ImageObject> Image { get; set; }
+
+        public ReactiveCommand CommandOpen { get; set; }
 
         public override async Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {

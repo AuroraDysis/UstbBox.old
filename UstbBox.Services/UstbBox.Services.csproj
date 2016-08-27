@@ -110,6 +110,7 @@
     <Compile Include="CredentialServices\CredentialService.cs" />
     <Compile Include="CredentialServices\ICredentialService.cs" />
     <Compile Include="EducationSystemServices\ElearningPart\ElearningHelper.cs" />
+    <Compile Include="Extensions\EncodingExtensions.cs" />
     <Compile Include="ImageServices\IImageService.cs" />
     <Compile Include="ImageServices\ImageHelper.cs" />
     <Compile Include="ImageServices\ImageService.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="EducationSystemServices\IEducationSystemService.cs" />
     <Compile Include="Infrastructure\AppDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TeachServices\ITeachService.cs" />
+    <Compile Include="TeachServices\TeachHelper.cs" />
+    <Compile Include="TeachServices\TeachService.cs" />
     <EmbeddedResource Include="Properties\UstbBox.Services.rd.xml" />
   </ItemGroup>
   <ItemGroup>

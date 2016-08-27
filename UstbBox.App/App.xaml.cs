@@ -1,26 +1,27 @@
 namespace UstbBox.App
 {
+    using System;
     using System.Threading.Tasks;
+
+    using Microsoft.Practices.ServiceLocation;
+    using Microsoft.Practices.Unity;
 
     using Template10.Common;
     using Template10.Controls;
+    using Template10.Utils;
 
     using UstbBox.App.Services.SettingsServices;
+    using UstbBox.App.ViewModels.Models;
+    using UstbBox.Models.Credentials;
+    using UstbBox.Services.CredentialServices;
+    using UstbBox.Services.EducationSystemServices;
 
     using Windows.ApplicationModel.Activation;
     using Windows.Security.Credentials;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Data;
 
-    using Microsoft.Practices.ServiceLocation;
-    using Microsoft.Practices.Unity;
-
-    using Template10.Utils;
-
-    using UstbBox.App.ViewModels.Models;
-    using UstbBox.Models.Credentials;
-    using UstbBox.Services.CredentialServices;
-    using UstbBox.Services.EducationSystemServices;
+    using Microsoft.Toolkit.Uwp.UI;
 
     [Bindable]
     public sealed partial class App : BootStrapper
@@ -32,6 +33,8 @@ namespace UstbBox.App
             this.UnhandledException += App_UnhandledException;
 
             this.SplashFactory = (e) => new Views.Splash(e);
+
+            ImageCache.CacheDuration = TimeSpan.FromDays(36500);
 
             var settings = SettingsService.Instance;
 
