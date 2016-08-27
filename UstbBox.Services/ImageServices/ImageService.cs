@@ -14,27 +14,27 @@ namespace UstbBox.Services.ImageServices
     {
         private readonly ImageHelper helper = new ImageHelper();
 
-        public IObservable<ImageObject> GetCampusMap()
+        public ImageObject GetCampusMap()
         {
-            return this.helper.DownloadImage(
-                "CampusMap",
-                "CampusMap",
-                "CampusMap.jpg",
-                "http://www.ustb.edu.cn/xxfw/UploadFiles_7320/200905/20090512160457504.jpg");
+            return new ImageObject("校园地图", "http://www.ustb.edu.cn/xxfw/UploadFiles_7320/200905/20090512160457504.jpg");
         }
 
-        public IObservable<List<ImageObject>> GetSchoolCalendars()
+        public IObservable<IList<ImageObject>> GetSchoolCalendars()
         {
-            return
-                this.helper.GetTerms()
+            var images = this.helper.GetTerms().Select(x => new ImageObject(x, this.helper.GetCalendarUrl(x))).ToList();
+            var db = AppDatabase.CommonCache();
+            var col = db.GetCollection<ImageObject>("SchoolCalendars");
+            var confirm = col.FindAll().ToList();
+            db.Dispose();
+
+            var unconfirm =
+                images.Except(confirm)
                     .ToObservable()
-                    .SelectMany(
-                        x =>
-                        this.helper.DownloadImage(x, "SchoolCalendars", x + ".jpg", this.helper.GetCalendarUrl(x))
-                            .Catch(Observable.Return<ImageObject>(null)))
-                    .Where(x => x != null)
-                    .ToList()
-                    .Select(x => x.ToList());
+                    .SelectMany(x => this.helper.GetCalendarExist(x.Uri).Select(b => Tuple.Create(b, x)))
+                    .Where(x => x.Item1)
+                    .Select(x => x.Item2);
+
+            return confirm.ToObservable().Merge(unconfirm).ToList();
         }
     }
 }

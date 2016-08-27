@@ -15,6 +15,7 @@ namespace UstbBox.App.ViewModels.Commons
     using Windows.UI.Xaml.Navigation;
 
     using Microsoft.Practices.ServiceLocation;
+    using Microsoft.Toolkit.Uwp.UI;
 
     using UstbBox.Services.ImageServices;
 
@@ -37,18 +38,7 @@ namespace UstbBox.App.ViewModels.Commons
                 {
                     case "CampusMap":
                         var service = ServiceLocator.Current.GetInstance<IImageService>();
-                        Views.Busy.SetBusy(true, "Downloading...");
-                        service.GetCampusMap().Subscribe(
-                            image =>
-                                {
-                                    Views.Busy.SetBusy(false);
-                                    image.Name = "校园地图";
-                                    this.Image.Value = image;
-                                },
-                            ex =>
-                                {
-                                    Views.Busy.SetBusy(false);
-                                });
+                        this.Image.Value = service.GetCampusMap();
                         break;
                 }
             }

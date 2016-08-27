@@ -28,6 +28,8 @@ namespace UstbBox.App.Views.Commons
     using UstbBox.Models.Images;
     using System.Reactive.Linq;
 
+    using Microsoft.Toolkit.Uwp.UI.Controls;
+
     public sealed partial class GalleryPage : Page
     {
         private static ImageObject navigationImageObject;
@@ -114,14 +116,14 @@ namespace UstbBox.App.Views.Commons
             if (animation != null)
             {
                 var item = this.ViewModel.ImageCollection.Value.FirstOrDefault(
-                    s => s.Path == navigationImageObject.Path);
+                    s => s.Uri == navigationImageObject.Uri);
                 this.GridView.ScrollIntoView(item, ScrollIntoViewAlignment.Default);
                 this.GridView.UpdateLayout();
                 var container = this.GridView.ContainerFromItem(item) as GridViewItem;
                 if (container != null)
                 {
                     var root = (FrameworkElement)container.ContentTemplateRoot;
-                    var image = (Image)root.FindName("Image");
+                    var image = (ImageEx)root.FindName("Image");
 
                     // Wait for image opened. In future Insider Preview releases, this won't be necessary.
                     image.Opacity = 0;

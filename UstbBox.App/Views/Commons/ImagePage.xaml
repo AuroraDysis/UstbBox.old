@@ -8,6 +8,7 @@
     xmlns:xaml="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:controls="using:Template10.Controls"
     xmlns:commons="using:UstbBox.App.ViewModels.Commons"
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Page.DataContext>
         <commons:ImagePageViewModel x:Name="ViewModel"/>
@@ -23,7 +24,9 @@
         <ScrollViewer Grid.Row="1" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" ZoomMode="Enabled"
                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" MinZoomFactor="0.1" MaxZoomFactor="2"
                       x:Name="ImageScrollViewer">
-            <Image x:Name="Image" Source="{x:Bind ViewModel.Image.Value.Path}" Stretch="UniformToFill" />
+            <controls1:ImageEx x:Name="Image" IsCacheEnabled="True" 
+                               Source="{x:Bind ViewModel.Image.Value.Uri}" 
+                               Stretch="UniformToFill" />
         </ScrollViewer>
     </Grid>
 </Page>

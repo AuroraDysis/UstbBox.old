@@ -10,8 +10,8 @@ namespace UstbBox.Services.ImageServices
 
     public interface IImageService
     {
-        IObservable<ImageObject> GetCampusMap();
+        ImageObject GetCampusMap();
 
-        IObservable<List<ImageObject>> GetSchoolCalendars();
+        IObservable<IList<ImageObject>> GetSchoolCalendars();
     }
 }
