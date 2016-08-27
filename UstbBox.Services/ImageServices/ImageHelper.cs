@@ -33,9 +33,8 @@ namespace UstbBox.Services.ImageServices
                     .ToList();
         }
 
-        public IObservable<bool> GetCalendarExist(string term)
+        public IObservable<bool> GetCalendarExist(string url)
         {
-            var url = this.GetCalendarUrl(term);
             return url.AllowAnyHttpStatus().HeadAsync().ToObservable().Select(x => x.IsSuccessStatusCode);
         }
 

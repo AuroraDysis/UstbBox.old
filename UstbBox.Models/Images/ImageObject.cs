@@ -18,9 +18,9 @@ namespace UstbBox.Models.Images
             this.Uri = uri;
         }
 
-        public string Name { get; }
+        public string Name { get; set; }
 
-        public string Uri { get; }
+        public string Uri { get; set; }
 
         public static bool operator ==(ImageObject a, ImageObject b)
         {
