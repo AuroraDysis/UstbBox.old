@@ -107,6 +107,7 @@
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VisualTreeHelperExtensions.cs" />
+    <Compile Include="Converters\TeachNewsItemOrderConverter.cs" />
     <Compile Include="Infrastructure\Startups.cs" />
     <Compile Include="Infrastructure\DialogManager.cs" />
     <Compile Include="Infrastructure\Pages.cs" />

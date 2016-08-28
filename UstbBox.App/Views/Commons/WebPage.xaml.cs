@@ -17,6 +17,10 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UstbBox.App.Views.Commons
 {
+    using System.Reactive.Linq;
+
+    using Reactive.Bindings.Extensions;
+
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -25,6 +29,7 @@ namespace UstbBox.App.Views.Commons
         public WebPage()
         {
             this.InitializeComponent();
+            this.ViewModel.Uri.SubscribeOnUIDispatcher().Where(x => x != null).Subscribe(x => this.WebView.Navigate(x));
         }
     }
 }

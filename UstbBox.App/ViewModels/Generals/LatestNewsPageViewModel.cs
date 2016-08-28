@@ -7,6 +7,7 @@ using Template10.Mvvm;
 
 namespace UstbBox.App.ViewModels.Generals
 {
+    using System.Collections.Specialized;
     using System.Reactive.Linq;
 
     using Windows.UI.Xaml.Controls;
@@ -23,36 +24,16 @@ namespace UstbBox.App.ViewModels.Generals
         public LatestNewsPageViewModel()
         {
             this.CommandRefresh = new ReactiveCommand().AddTo(this.DisposableGroup);
-            this.CommandRefresh.Subscribe(
-                _ =>
-                    {
-                        var news = this.LatestNews;
-                        this.LatestNews = null;
-                        news?.Dispose();
-                        this.LatestNews = this.TeachService.GetLatestNews().ToReadOnlyReactiveCollection().AddTo(this.DisposableGroup);
-                    });
-            this.LatestNews =
-                this.TeachService.GetLatestNews().ToReadOnlyReactiveCollection().AddTo(this.DisposableGroup);
+            this.CommandRefresh.Subscribe(_ => this.GetLatestNews());
+            this.GetLatestNews();
         }
 
         public ITeachService TeachService { get; set; } = ServiceLocator.Current.GetInstance<ITeachService>();
 
         public ReactiveCommand CommandRefresh { get; set; }
 
-        private ReadOnlyReactiveCollection<TeachNewsItem> latestNews = default(ReadOnlyReactiveCollection<TeachNewsItem>);
-
-        public ReadOnlyReactiveCollection<TeachNewsItem> LatestNews
-        {
-            get
-            {
-                return this.latestNews;
-            }
-
-            set
-            {
-                this.Set(ref this.latestNews, value);
-            }
-        }
+        List<TeachNewsItem> latestNews = default(List<TeachNewsItem>);
+        public List<TeachNewsItem> LatestNews { get { return this.latestNews; } set { Set(ref this.latestNews, value); } }
 
         public void OpenNewsLink(object sender, ItemClickEventArgs e)
         {
@@ -61,7 +42,12 @@ namespace UstbBox.App.ViewModels.Generals
             {
                 return;
             }
-            
+            this.NavigationService.Navigate(Pages.WebPage, item);
+        }
+
+        private void GetLatestNews()
+        {
+            this.TeachService.GetLatestNews().ToList().Subscribe(list => this.LatestNews = list.ToList()).AddTo(this.DisposableGroup); ;
         }
     }
 }

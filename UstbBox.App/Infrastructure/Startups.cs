@@ -39,6 +39,8 @@ namespace UstbBox.App
             keys.TryAdd(Pages.MainPage, typeof(Views.MainPage));
             keys.TryAdd(Pages.ImagePage, typeof(Views.Commons.ImagePage));
             keys.TryAdd(Pages.GalleryPage, typeof(Views.Commons.GalleryPage));
+            keys.TryAdd(Pages.WebPage, typeof(Views.Commons.WebPage));
+            keys.TryAdd(Pages.LatestNewsPage, typeof(Views.Generals.LatestNewsPage));
             keys.TryAdd(Pages.CredentialPage, typeof(Views.Settings.CredentialPage));
             keys.TryAdd(Pages.SettingsPage, typeof(Views.Settings.SettingsPage));
         }

@@ -5,9 +5,25 @@
     xmlns:local="using:UstbBox.App.Views.Commons"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:commons="using:UstbBox.App.ViewModels.Commons"
     mc:Ignorable="d">
-
+    <Page.DataContext>
+        <commons:WebPageViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--  header  -->
+        <controls:PageHeader Frame="{x:Bind Frame}" Content="{x:Bind ViewModel.Title.Value}" HorizontalContentAlignment="Stretch">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:EllipsisBehavior Visibility="Auto" />
+            </interactivity:Interaction.Behaviors>
+        </controls:PageHeader>
+        <WebView Grid.Row="1" x:Name="WebView"/>
     </Grid>
 </Page>

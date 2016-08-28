@@ -11,6 +11,7 @@ namespace UstbBox.App
         MainPage,
         GalleryPage,
         ImagePage,
+        WebPage,
         LatestNewsPage,
         CredentialPage,
         SettingsPage,
