@@ -2,46 +2,62 @@
     x:Class="UstbBox.App.Views.Generals.LatestNewsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UstbBox.App.Views.Generals"
+    xmlns:behaviors="using:Template10.Behaviors"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:converters="using:UstbBox.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:generals="using:UstbBox.App.ViewModels.Generals"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:UstbBox.App.Views.Generals"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:teach="using:UstbBox.Models.Teach"
-    xmlns:generals="using:UstbBox.App.ViewModels.Generals"
-    xmlns:controls="using:Template10.Controls"
-    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-    xmlns:behaviors="using:Template10.Behaviors"
-    xmlns:converters="using:UstbBox.App.Converters"
     mc:Ignorable="d">
     <Page.DataContext>
-        <generals:LatestNewsPageViewModel x:Name="ViewModel"/>
+        <generals:LatestNewsPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-  
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <!--  header  -->
-        <controls:PageHeader Frame="{x:Bind Frame}" Content="最新通知" HorizontalContentAlignment="Stretch">
+        <controls:PageHeader
+            HorizontalContentAlignment="Stretch"
+            Content="最新通知"
+            Frame="{x:Bind Frame}">
             <interactivity:Interaction.Behaviors>
                 <behaviors:EllipsisBehavior Visibility="Auto" />
             </interactivity:Interaction.Behaviors>
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Label="刷新" Icon="Refresh" Command="{x:Bind ViewModel.CommandRefresh}"/>
+                <AppBarButton
+                    Command="{x:Bind ViewModel.CommandRefresh}"
+                    Icon="Refresh"
+                    Label="刷新" />
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <Grid Grid.Row="1">
-            <ListView ItemsSource="{x:Bind ViewModel.LatestNews, Mode=OneWay, Converter={StaticResource TeachNewsItemOrder}}"
-                      IsItemClickEnabled="True" ItemClick="{x:Bind ViewModel.OpenNewsLink}">
-                <ListView.ItemTemplate>
+            <controls1:PullToRefreshListView
+                IsItemClickEnabled="True"
+                ItemClick="{x:Bind ViewModel.OpenNewsLink}"
+                ItemsSource="{x:Bind ViewModel.LatestNews, Mode=OneWay, Converter={StaticResource TeachNewsItemOrder}}"
+                OverscrollLimit="0.4"
+                PullThreshold="100"
+                RefreshCommand="{x:Bind ViewModel.CommandRefresh}">
+                <controls1:PullToRefreshListView.ItemTemplate>
                     <DataTemplate x:DataType="teach:TeachNewsItem">
-                        <StackPanel VerticalAlignment="Center" Margin="8">
-                            <TextBlock Text="{x:Bind Name}" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                        <StackPanel Margin="8" VerticalAlignment="Center">
+                            <TextBlock
+                                Style="{StaticResource SubtitleTextBlockStyle}"
+                                FontWeight="Bold"
+                                Text="{x:Bind Name}"
+                                TextWrapping="Wrap" />
                             <TextBlock Text="{x:Bind Date}" />
                         </StackPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </controls1:PullToRefreshListView.ItemTemplate>
+            </controls1:PullToRefreshListView>
         </Grid>
     </Grid>
 </Page>
