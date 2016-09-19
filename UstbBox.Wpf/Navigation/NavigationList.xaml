@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:UstbBox.Wpf.Navigation"
+                    xmlns:settingsVm="clr-namespace:UstbBox.Wpf.ViewModels.Settings">
+    <x:Array x:Key="NavigationList" Type="{x:Type local:NavigationCollection}">
+        <local:NavigationCollection GroupName="常用工具" />
+
+        <local:NavigationCollection GroupName="设置">
+            <local:NavigationItem IconKind="Settings"
+                                  Introduction="可以更换软件的颜色以及改变亮暗主题。"
+                                  ItemName="颜色设置"
+                                  ViewModelType="{x:Type settingsVm:VisualViewModel}" />
+            <local:NavigationItem IconKind="AccountBox"
+                                  Introduction="添加、删除、修改你的账号。"
+                                  ItemName="账号管理"
+                                  ViewModelType="{x:Type settingsVm:CredentialViewModel}" />
+            <local:NavigationItem IconKind="CommentQuestionOutline"
+                                  Introduction="关于此软件及作者的各种信息。"
+                                  ItemName="关于"
+                                  ViewModelType="{x:Type settingsVm:AboutViewModel}" />
+        </local:NavigationCollection>
+    </x:Array>
+</ResourceDictionary>

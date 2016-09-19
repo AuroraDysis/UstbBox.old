@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:generals="clr-namespace:UstbBox.Wpf.Views.Generals"
+                    xmlns:generalsVm="clr-namespace:UstbBox.Wpf.ViewModels.Generals"
+                    xmlns:local="clr-namespace:UstbBox.Wpf.Navigation"
+                    xmlns:settings="clr-namespace:UstbBox.Wpf.Views.Settings"
+                    xmlns:settingsVm="clr-namespace:UstbBox.Wpf.ViewModels.Settings"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <DataTemplate x:Key="{x:Type generalsVm:HomeViewModel}" DataType="{x:Type system:WeakReference}">
+        <generals:HomeView DataContext="{Binding Target}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="{x:Type settingsVm:VisualViewModel}" DataType="{x:Type system:WeakReference}">
+        <settings:VisualView DataContext="{Binding Target}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="{x:Type settingsVm:CredentialViewModel}" DataType="{x:Type system:WeakReference}">
+        <settings:CredentialView DataContext="{Binding Target}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="{x:Type settingsVm:AboutViewModel}" DataType="{x:Type system:WeakReference}">
+        <settings:AboutView DataContext="{Binding Target}" />
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,132 @@
+﻿<UserControl x:Class="UstbBox.Wpf.Views.Generals.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controller="clr-namespace:UstbBox.Wpf.Controllers"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+             xmlns:local="clr-namespace:UstbBox.Wpf.Views.Generals"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:navigation="clr-namespace:UstbBox.Wpf.Navigation"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/UstbBox.Wpf;component/Navigation/NavigationList.xaml" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Height="134.4" Mode="PrimaryLight">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="51.2" />
+                    <RowDefinition Height="19.2" />
+                    <RowDefinition Height="44.8" />
+                    <RowDefinition Height="19.2" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="51.2" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="35.2" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="1"
+                           Margin="2,0,0,0"
+                           VerticalAlignment="Bottom"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Text="University of Science and Technology Beijing" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Bottom"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                           Text="Last updated 23 October 2016" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource MaterialDesignDisplay1TextBlock}"
+                           Text="Easy ways to simplify your life" />
+
+            </Grid>
+        </materialDesign:ColorZone>
+        <dragablz:TabablzControl Grid.Row="1"
+                                 HeaderMemberPath="GroupName"
+                                 ItemsSource="{StaticResource NavigationList}">
+            <dragablz:TabablzControl.ContentTemplate>
+                <DataTemplate DataType="{x:Type navigation:NavigationCollection}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ItemsControl Margin="10" ItemsSource="{Binding Items}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="navigation1:NavigationItem">
+                                    <materialDesign:TransitioningContent Opacity="0"
+                                                                         OpeningEffectsOffset="{materialDesign:IndexedItemOffsetMultiplierExtension 0:0:0.1}"
+                                                                         RunHint="Loaded">
+                                        <materialDesign:TransitioningContent.OpeningEffects>
+                                            <materialDesign:TransitionEffect Duration="0:0:0.150" Kind="SlideInFromRight" />
+                                            <materialDesign:TransitionEffect Duration="0:0:0.150" Kind="FadeIn" />
+                                        </materialDesign:TransitioningContent.OpeningEffects>
+                                        <materialDesign:Card Width="250"
+                                                             Height="154.5"
+                                                             Margin="3"
+                                                             VerticalAlignment="Stretch"
+                                                             Padding="5">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0.309*" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <materialDesign:PackIcon Grid.RowSpan="3"
+                                                                         Width="32"
+                                                                         Height="32"
+                                                                         HorizontalAlignment="Center"
+                                                                         VerticalAlignment="Center"
+                                                                         Kind="{Binding IconKind}" />
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="1"
+                                                           Margin="5"
+                                                           Style="{StaticResource MaterialDesignTitleTextBlock}"
+                                                           Text="{Binding ItemName}" />
+                                                <Border Grid.Row="1"
+                                                        Grid.Column="1"
+                                                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                        BorderThickness="0,1,0,0" />
+                                                <TextBlock Grid.Row="2"
+                                                           Grid.Column="1"
+                                                           Margin="5,8,5,0"
+                                                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                                           Text="{Binding Introduction}"
+                                                           TextWrapping="Wrap" />
+                                                <Button Grid.Row="3"
+                                                        Grid.Column="1"
+                                                        Margin="8"
+                                                        HorizontalAlignment="Right"
+                                                        Command="{x:Static controller:NavigationService.CommandNavigateToItem}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{DynamicResource MaterialDesignFlatButton}">
+                                                    MORE
+                                                </Button>
+                                            </Grid>
+                                        </materialDesign:Card>
+                                    </materialDesign:TransitioningContent>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DataTemplate>
+            </dragablz:TabablzControl.ContentTemplate>
+        </dragablz:TabablzControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<controls:MetroWindow x:Class="UstbBox.Wpf.Shell"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controller="clr-namespace:UstbBox.Wpf.Controllers"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:local="clr-namespace:UstbBox.Wpf"
+                      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:navigation="clr-namespace:UstbBox.Wpf.Navigation"
+                      Title="贝壳生活盒子"
+                      Width="800"
+                      Height="650"
+                      Background="{DynamicResource MaterialDesignPaper}"
+                      FontFamily="{StaticResource DefaultFont}"
+                      FontSize="14"
+                      FontWeight="Medium"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                      TextOptions.TextFormattingMode="Display"
+                      TextOptions.TextRenderingMode="ClearType"
+                      WindowStartupLocation="CenterScreen"
+                      mc:Ignorable="d">
+    <controls:MetroWindow.WindowButtonCommands>
+        <controls:WindowButtonCommands Style="{DynamicResource MahApps.Metro.Styles.WindowButtonCommands.Win10}" />
+    </controls:MetroWindow.WindowButtonCommands>
+    <Grid>
+        <materialDesign:DialogHost Identifier="DefaultHost">
+            <materialDesign:Transitioner AutoApplyTransitionOrigins="True"
+                                         DataContext="{x:Static controller:NavigationService.Instance}"
+                                         ItemsSource="{Binding SlidersSource}"
+                                         SelectedIndex="{Binding ActiveSliderIndex.Value}">
+                <materialDesign:Transitioner.ItemTemplateSelector>
+                    <navigation:NavigationTemplateSelector />
+                </materialDesign:Transitioner.ItemTemplateSelector>
+            </materialDesign:Transitioner>
+        </materialDesign:DialogHost>
+    </Grid>
+</controls:MetroWindow>
